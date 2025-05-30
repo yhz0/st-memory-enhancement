@@ -51,10 +51,14 @@ export class Sheet extends SheetBase {
             const rowElement = document.createElement('tr');
             rowUids.forEach((cellUid, colIndex) => {
                 const cell = this.cells.get(cellUid)
-                const cellElement = cell.initCellRender(rowIndex, colIndex);
-                rowElement.appendChild(cellElement);    // 调用 Cell 的 initCellRender 方法，仍然需要传递 rowIndex, colIndex 用于渲染单元格内容
-                if (cellEventHandler) {
-                    cellEventHandler(cell);
+                if (cell) {
+                    const cellElement = cell.initCellRender(rowIndex, colIndex);
+                    rowElement.appendChild(cellElement);    // 调用 Cell 的 initCellRender 方法，仍然需要传递 rowIndex, colIndex 用于渲染单元格内容
+                    if (cellEventHandler) {
+                        cellEventHandler(cell);
+                    }
+                } else {
+                    console.warn(`Cell with UID "${cellUid}" not found.`);
                 }
             });
             tbody.appendChild(rowElement); // 将 rowElement 添加到 tbody 中
