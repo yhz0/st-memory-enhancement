@@ -59,6 +59,8 @@ export class Sheet extends SheetBase {
                     }
                 } else {
                     console.warn(`Cell with UID "${cellUid}" not found.`);
+                    const emptyCellElement = document.createElement('td');
+                    rowElement.appendChild(emptyCellElement);
                 }
             });
             tbody.appendChild(rowElement); // 将 rowElement 添加到 tbody 中
